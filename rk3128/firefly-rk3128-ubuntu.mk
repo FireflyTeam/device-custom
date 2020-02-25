@@ -20,7 +20,7 @@ export RK_PACKAGE_FILE=rk3128-ubuntu-package-file
 # Set rootfs type, including ext2 ext4 squashfs
 export RK_ROOTFS_TYPE=ext4
 # rootfs image path
-export RK_ROOTFS_IMG=ubunturootfs/ubuntu_16.04_arm64_20190226150448.img
+export RK_ROOTFS_IMG=buildroot/output/$RK_CFG_BUILDROOT/images/rootfs.$RK_ROOTFS_TYPE
 
 # Recovery config
 export RK_CFG_RECOVERY=
