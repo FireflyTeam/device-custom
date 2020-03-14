@@ -30,6 +30,8 @@ export RK_TARGET_PRODUCT=rk1808
 export RK_ROOTFS_TYPE=ext4
 # rootfs image path
 export RK_ROOTFS_IMG=rockdev/rootfs.${RK_ROOTFS_TYPE}
+# packagefile for make update image
+export RK_PACKAGE_FILE=rk1808-package-file
 # Set oem partition type, including ext2 squashfs
 export RK_OEM_FS_TYPE=ext2
 # Set userdata partition type, including ext2, fat

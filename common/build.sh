@@ -304,6 +304,12 @@ function build_updateimg(){
 
 	else
 		echo "Make update.img"
+	    if [[ x"$RK_PACKAGE_FILE" != x ]];then
+			cd $PACK_TOOL_DIR/rockdev
+			rm -f package-file
+			ln -sf $RK_PACKAGE_FILE package-file
+		fi
+
 		cd $PACK_TOOL_DIR/rockdev && ./mkupdate.sh && cd -
 		mv $PACK_TOOL_DIR/rockdev/update.img $IMAGE_PATH
 		if [ $? -eq 0 ]; then

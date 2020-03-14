@@ -21,12 +21,18 @@ BOOT_IMG=$TOP_DIR/kernel/$RK_BOOT_IMG
 LOADER=$TOP_DIR/u-boot/*_loader_v*.bin
 #SPINOR_LOADER=$TOP_DIR/u-boot/*_loader_spinor_v*.bin
 MKIMAGE=$SCRIPT_DIR/mk-image.sh
+RECOVERY_ROOTFS=$TOP_DIR/device/rockchip/rockimg/rootfs-${RK_ARCH}.cpio.gz
+KERNEL_IMAGE=$TOP_DIR/$RK_KERNEL_IMG
+KERNEL_DTB=$TOP_DIR/kernel/resource.img
+
 mkdir -p $ROCKDEV
 
 # Require buildroot host tools to do image packing.
-if [ ! -d "$TARGET_OUTPUT_DIR" ]; then
-    echo "Source buildroot/build/envsetup.sh"
-    source $TOP_DIR/buildroot/build/envsetup.sh $RK_CFG_BUILDROOT
+if [ $RK_CFG_BUILDROOT ]; then
+	if [ ! -d "$TARGET_OUTPUT_DIR" ]; then
+		echo "Source buildroot/build/envsetup.sh"
+		source $TOP_DIR/buildroot/build/envsetup.sh $RK_CFG_BUILDROOT
+	fi
 fi
 
 check_partition_size() {
@@ -121,6 +127,18 @@ then
 	else
 		echo "warning: $RECOVERY_IMG not found!"
 	fi
+elif [ -f $RECOVERY_ROOTFS ]
+then
+       echo -n "create recovery.img..."
+       if [ -f $TOP_DIR/rockdev/recovery.img ]
+       then
+               rm -f $TOP_DIR/rockdev/recovery.img
+       fi
+       $TOP_DIR/kernel/scripts/mkbootimg --kernel $KERNEL_IMAGE --ramdisk $RECOVERY_ROOTFS --second $KERNEL_DTB -o $TOP_DIR/rockdev/recovery.img
+	   RECOVERY_IMG=$TOP_DIR/rockdev/recovery.img
+	   echo "done."
+else
+       echo "warning: $RECOVERY_ROOTFS not found!"
 fi
 
 if [ $RK_MISC ]
