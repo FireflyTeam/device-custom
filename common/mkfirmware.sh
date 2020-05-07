@@ -51,8 +51,6 @@ then
 	echo -n "create recovery.img..."
 	ln -s -f $RECOVERY_IMG $ROCKDEV/recovery.img
 	echo "done."
-else
-	echo -e "\e[31m error: $RECOVERY_IMG not found! \e[0m"
 fi
 
 if [ -f $MISC_IMG ]
@@ -60,8 +58,6 @@ then
 	echo -n "create misc.img..."
 	ln -s -f $MISC_IMG $ROCKDEV/misc.img
 	echo "done."
-else
-	echo -e "\e[31m error: $MISC_IMG not found! \e[0m"
 fi
 
 if [ -d $OEM_DIR ]
@@ -69,8 +65,6 @@ then
 	echo -n "create oem.img..."
 	$MKOEM $OEM_DIR $ROCKDEV/oem.img $RK_OEM_FS_TYPE
 	echo "done."
-else
-	echo -e "\e[31m error: create oem image fail! \e[0m"
 fi
 
 if [ -d $USER_DATA_DIR ]
@@ -78,8 +72,6 @@ then
 	echo -n "create userdata.img..."
 	$MKUSERDATA $USER_DATA_DIR $ROCKDEV/userdata.img $RK_USERDATA_FS_TYPE
 	echo "done."
-else
-	echo -e "\e[31m error: $USER_DATA_DIR not found! \e[0m"
 fi
 
 if [ -f $UBOOT_IMG ]
@@ -96,8 +88,6 @@ then
         echo -n "create idbloader.img..."
         ln -s -f $IDBLOADER_IMG $ROCKDEV/idbloader.img
         echo "done."
-else
-        echo -e "\e[31m error: $IDBLOADER_IMG not found! \e[0m"
 fi
 
 if [ -f $TRUST_IMG ]
